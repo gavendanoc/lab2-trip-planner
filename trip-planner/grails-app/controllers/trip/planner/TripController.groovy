@@ -10,7 +10,16 @@ class TripController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    
+    def find(Long prec){
+        try {
+            println params.price
+            max_price = params.price.toInteger()
+        } catch (Exception e) {
+            
+        }
+        // respond tripService.list().findAll {t -> t.precio <= params.precio.toInteger()}
+        respond tripService.list(params).findAll{t -> t.price <= max_price}
+    }
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
